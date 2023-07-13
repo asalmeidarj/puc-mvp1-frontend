@@ -1,0 +1,28 @@
+.nav {
+    display: flex;
+    gap: 10px;
+    color: #dedede;
+    text-decoration: none;
+}
+
+.nav > a {
+    font-size: 1.1rem;
+}
+
+.active {
+    color: #4683ff;
+    text-decoration: none;
+
+}
+
+.unSelected {
+    position: relative;
+    color: #dedede;
+    text-decoration: none;
+}
+
+@media (max-width: 600px){
+    .nav {
+        display: none;
+    }
+}

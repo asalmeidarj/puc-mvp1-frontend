@@ -1,0 +1,85 @@
+.btnMenu {
+    display: flex;
+    padding: .5rem 0;
+    font-size: 1rem;
+    background: none;
+    border: none;
+    color: #dedede;
+    cursor: pointer;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.hamburguer {
+    display: block;
+    position: relative;
+    border-top: 2px solid;
+    color: #dedede;
+    width: 25px;
+}
+
+.hamburguer::before, .hamburguer::after {
+    display: block;
+    content: '';
+    width: 25px;
+    height: 2px;
+    background-color: currentColor;
+    margin-top: 5px;
+    transition: .5s;
+}
+
+.hamburguer.open {
+    border: 0;
+}
+
+.hamburguer.open::before {
+    transform: rotate(45deg);
+}
+
+.hamburguer.open::after {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.menuMobile {
+    visibility: hidden;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100vw;
+    height: 0;
+    transition: .5s;
+    overflow-y: hidden;
+    z-index: 2;
+}
+
+.menuMobile.active {
+    visibility: visible;
+    background-color: #040d30;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.item {
+    width: 100%;
+    text-decoration: none;
+    color: #dedede;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.item:hover {
+    background-color: #2f3653;
+}
+
+@media (min-width: 601px) {
+    .btnMenu, .menuMobile {
+        display: none;
+    }
+}
