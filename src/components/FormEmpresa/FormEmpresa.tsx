@@ -6,20 +6,6 @@ import styles from './form_empresa.module.css'
 import axios from 'axios';
 
 
-interface IEmpresa {
-  id: number;
-  nome: string;
-  cnpj: string;
-  descricao: string;
-  logradouro: string;
-  numero: string;
-  complemento: string;
-  bairro: string;
-  cidade: string;
-  estado: string;
-  data_insercao: string;
-}
-
 export default  function FormEmpresa() {
   const [formValues, setFormValues] = useState({
     nome: '',
