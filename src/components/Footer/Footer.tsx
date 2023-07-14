@@ -11,7 +11,7 @@ const FooterComponent = styled.footer`
 function Footer() {
   return (
     <FooterComponent className={styles.container}>
-        <p>Footer</p>
+        <p>Desenvolvido por Alessandro Almeida</p>
     </FooterComponent >
   )
 }
