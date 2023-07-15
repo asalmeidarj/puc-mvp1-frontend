@@ -9,10 +9,6 @@ import styles from "./lista_empresa.module.css";
 
 import { empresa } from "../../models/empresa";
 
-interface Props {
-  data: empresa;
-}
-
 export default function ListaEmpresa() {
   const [show, setShow] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
