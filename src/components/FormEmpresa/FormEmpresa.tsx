@@ -1,10 +1,17 @@
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Modal, Spinner } from "react-bootstrap";
+
+import { CloseCircle, TickCircle } from "iconsax-react";
 
 import styles from "./form_empresa.module.css";
 import axios from "axios";
 
 export default function FormEmpresa() {
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [icon, setIcon] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+
   const [formValues, setFormValues] = useState({
     nome: "",
     cnpj: "",
@@ -17,6 +24,19 @@ export default function FormEmpresa() {
     estado: "",
   });
 
+  const chooseIcon = () => {
+    if (!icon)
+      return (
+        <CloseCircle size="32" color="#FFF" className={styles.iconClose} />
+      );
+
+    return <TickCircle size="32" color="#FFF" className={styles.iconTick}/>;
+  };
+
+  const handleClose = () => {
+    setShowMessage(false);
+  };
+
   const handleChange = (event: any) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
@@ -24,6 +44,8 @@ export default function FormEmpresa() {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+
+    setLoading(true);
 
     const response = await axios
       .post("http://127.0.0.1:5000/empresa", formValues, {
@@ -33,21 +55,35 @@ export default function FormEmpresa() {
         },
       })
       .then((res) => {
-        console.log({ response: res.data });
         return true;
       })
       .catch((e: Error) => {
-        console.log(e.message);
         return false;
       });
 
     if (!response) {
-      alert("Falha ao tentar registrar empresa!");
+      setLoading(false);
+      setIcon(false)
+      setMessage("Não foi possível efetuar o registro!");
+      setShowMessage(true);
       return;
     }
 
-    alert("Empresa foi registrada com sucesso");
+    setLoading(false);
+    setIcon(true)
+    setMessage("Cadastro realizado com sucesso!");
+    setShowMessage(true);
   };
+
+  if (loading) {
+    return (
+      <section className={styles.spinner}>
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </section>
+    );
+  }
 
   return (
     <>
@@ -68,7 +104,7 @@ export default function FormEmpresa() {
           <Form.Label className={styles.label}>CNPJ</Form.Label>
           <Form.Control
             className={styles.input}
-            type="cnpj"
+            type="number"
             name="cnpj"
             value={formValues.cnpj}
             onChange={handleChange}
@@ -80,7 +116,7 @@ export default function FormEmpresa() {
           <Form.Label className={styles.label}>Logradouro</Form.Label>
           <Form.Control
             className={styles.input}
-            type="logradouro"
+            type="text"
             name="logradouro"
             value={formValues.logradouro}
             onChange={handleChange}
@@ -91,7 +127,7 @@ export default function FormEmpresa() {
           <Form.Label className={styles.label}>Número</Form.Label>
           <Form.Control
             className={styles.input}
-            type="numero"
+            type="number"
             name="numero"
             value={formValues.numero}
             onChange={handleChange}
@@ -102,7 +138,7 @@ export default function FormEmpresa() {
           <Form.Label className={styles.label}>Complemento</Form.Label>
           <Form.Control
             className={styles.input}
-            type="complemento"
+            type="text"
             name="complemento"
             value={formValues.complemento}
             onChange={handleChange}
@@ -113,7 +149,7 @@ export default function FormEmpresa() {
           <Form.Label className={styles.label}>Bairro</Form.Label>
           <Form.Control
             className={styles.input}
-            type="bairro"
+            type="text"
             name="bairro"
             value={formValues.bairro}
             onChange={handleChange}
@@ -124,7 +160,7 @@ export default function FormEmpresa() {
           <Form.Label className={styles.label}>Cidade</Form.Label>
           <Form.Control
             className={styles.input}
-            type="cidade"
+            type="text"
             name="cidade"
             value={formValues.cidade}
             onChange={handleChange}
@@ -135,7 +171,7 @@ export default function FormEmpresa() {
           <Form.Label className={styles.label}>Estado</Form.Label>
           <Form.Control
             className={styles.input}
-            type="estado"
+            type="text"
             name="estado"
             value={formValues.estado}
             onChange={handleChange}
@@ -146,19 +182,32 @@ export default function FormEmpresa() {
           <Form.Label className={styles.label}>Descrição</Form.Label>
           <Form.Control
             className={styles.input}
-            type="descricao"
+            type="text"
             name="descricao"
             value={formValues.descricao}
             onChange={handleChange}
           />
         </Form.Group>
 
-        {/* Adicione aqui outros campos do seu formulário usando a estrutura acima */}
-
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" className={styles.button}>
           Registrar
         </Button>
       </Form>
+
+      <Modal
+        backdropClassName={styles.backdrop}
+        className={styles.modal}
+        show={showMessage}
+        onHide={handleClose}
+        animation={false}
+        size="lg"
+      >
+        <Modal.Header></Modal.Header>
+        <Modal.Body className={styles.modalBodyMessage}>
+          <h3>{message}</h3>
+          {chooseIcon()}
+        </Modal.Body>
+      </Modal>
     </>
   );
 }

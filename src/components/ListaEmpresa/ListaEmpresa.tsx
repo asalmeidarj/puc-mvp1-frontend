@@ -99,9 +99,7 @@ export default function ListaEmpresa() {
           .delete(`http://127.0.0.1:5000/empresa?id=${id}`)
           .then((resp) => {
             setMessage("Empresa deletada com sucesso!");
-            for (const item of items) {
-              if (item.id == id) items.pop();
-            }
+            window.location.reload()
           })
           .catch((e: Error) => {
             setMessage("Não foi possível deletar a empresa!");
