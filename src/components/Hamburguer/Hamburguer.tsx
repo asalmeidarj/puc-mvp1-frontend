@@ -49,8 +49,8 @@ export default function Hamburguer() {
         <nav className={styles.nav}>
           {/*<Link  className={styles.link} to={'/'}>Home</Link>*/}
           <NavLink className={styles.item} onClick={toggleMenu} to='/'> Home </NavLink>
-          <NavLink className={styles.item} onClick={toggleMenu} to='/about' > About </NavLink>
-          <NavLink className={styles.item} onClick={toggleMenu} to='/products'> Products </NavLink>
+          <NavLink className={styles.item} onClick={toggleMenu} to='/cadastro-empresa' > Cadastrar Empresa </NavLink>
+          <NavLink className={styles.item} onClick={toggleMenu} to='/consultar-empresas'> Consultar Empresa </NavLink>
         </nav>
       </section>
     </>

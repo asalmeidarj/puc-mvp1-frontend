@@ -1,4 +1,4 @@
-export type IEmpresa = {
+export type empresa = {
     id: number,
     nome: string,
     cnpj: string,

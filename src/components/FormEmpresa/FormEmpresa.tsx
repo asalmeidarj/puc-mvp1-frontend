@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import Alert from "react-bootstrap/Alert";
-import "bootstrap/dist/css/bootstrap.css";
 
 import styles from "./form_empresa.module.css";
 import axios from "axios";
@@ -62,6 +60,7 @@ export default function FormEmpresa() {
             name="nome"
             value={formValues.nome}
             onChange={handleChange}
+            required
           />
         </Form.Group>
 
@@ -73,6 +72,7 @@ export default function FormEmpresa() {
             name="cnpj"
             value={formValues.cnpj}
             onChange={handleChange}
+            required
           />
         </Form.Group>
 

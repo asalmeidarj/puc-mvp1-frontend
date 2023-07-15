@@ -1,0 +1,171 @@
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100vw - 40px);
+    height: 120px;
+    background-color: #f7f7fa;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 10px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 3px 3px 6px 0px #dfdfdf;
+}
+
+.containerPesquisa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100vw - 40px);;
+    height: 70px;
+    background-color: #e4e4ed;
+    border-radius: 10px;
+    margin: 10px 0 40px 0;
+    padding: 10px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 3px 3px 6px 0px #dfdfdf;
+}
+
+.containerAlert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100vw - 40px);
+    height: 120px;
+    background-color: #f6aa30aa;
+    border-radius: 10px;
+    margin: 10px 0 60px 0;
+    padding: 10px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 3px 3px 6px 0px #dfdfdf;
+}
+
+.divName {
+    width: 30%;
+}
+
+.divCnpj {
+    width: 10%;
+}
+
+
+.containerIcons {
+    display: flex;
+    gap: 5px;
+    background-color: none;
+}
+
+.boxIcons {
+    display: flex;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+}
+
+.iconSearch{
+    background-color: #25549f;
+    border-radius: 3px;
+    width: 70px;
+    height: 35px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.iconSearch:hover {
+    background-color: #3a80f1;
+    width: 70px;
+    height: 35px;
+}
+
+.iconBook{
+    background-color: #31965f;
+    border-radius: 10px;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.iconBook:hover {
+    background-color: #41cd80;
+    width: 35px;
+    height: 35px;
+}
+
+.iconEdit{
+    background-color: #267178;
+    border-radius: 10px;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.iconEdit:hover {
+    background-color: #3fc6c6;
+    width: 35px;
+    height: 35px;
+}
+
+.iconTrash{
+    background-color: #b02f2f;
+    border-radius: 10px;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.iconTrash:hover {
+    background-color: #de1e1e;
+    width: 35px;
+    height: 35px;
+}
+
+.modal {
+    margin-top: 150px;
+}
+
+.modalBodyDelete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.modalBodyMessage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.textModalDelete {
+   font-size: 20px;
+}
+
+.buttonsModalDelete {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   gap: 20px;
+}
+
+.buttonDelete {
+    background-color: tomato;
+    border-color: none;
+    border: 0;
+}
+
+.buttonDelete:hover {
+    background-color: rgb(249, 138, 90);
+}
+
+.backdrop {
+    background-color: #000000;
+}
+
+.margemBottom {
+    margin-bottom: 20px;
+}
