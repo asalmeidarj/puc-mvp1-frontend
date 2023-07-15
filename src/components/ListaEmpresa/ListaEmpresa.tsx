@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Book, Edit, Trash, SearchNormal1 } from "iconsax-react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { InputGroup, Form } from "react-bootstrap";
+import { InputGroup, Form, Spinner } from "react-bootstrap";
 import axios from "axios";
 
 import styles from "./lista_empresa.module.css";
@@ -22,7 +22,9 @@ export default function ListaEmpresa() {
   const [baseItems, setbaseItems] = useState([] as empresa[]);
   const [search, setsearch] = useState("");
   const [formValues, setFormValues] = useState({} as empresa);
-  const [momento, setMomento] = useState('')
+  const [momento, setMomento] = useState("");
+
+  const [loading, setLoading] = useState(true);
 
   const handleClose = () => {
     setShow(false);
@@ -41,6 +43,13 @@ export default function ListaEmpresa() {
   };
 
   useEffect(() => {
+    setLoading(true);
+    setMomento(atualizacao());
+
+    const timer = setTimeout(() => {
+      fetchData();
+    }, 300);
+
     const fetchData = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:5000/empresas");
@@ -49,17 +58,24 @@ export default function ListaEmpresa() {
         setbaseItems(data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchData();
+    return () => clearTimeout(timer);
   }, []);
 
   const pesquisarEmpresaPorCnpj = (cnpj: string) => {
     setMomento(atualizacao());
+    setLoading(true);
 
     const fetchData = async () => {
-      if (!cnpj) return setItems(baseItems);
+      if (!cnpj) {
+        setItems(baseItems)
+        setLoading(false)
+        return 
+      };
       try {
         const response = await axios.get(
           `http://127.0.0.1:5000/empresa?cnpj=${cnpj}`
@@ -68,6 +84,8 @@ export default function ListaEmpresa() {
         setItems([data]);
       } catch (error) {
         setItems([]);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -110,7 +128,36 @@ export default function ListaEmpresa() {
     return `${dia}-${mes}-${date.getFullYear()} ${hour}:${minutos}:${segundos}`;
   };
 
-  if (items.length == 0) {
+  if (loading) {
+    return (
+      <>
+        <section className={styles.containerPesquisa}>
+          <InputGroup>
+            <InputGroup.Text id="basic-addon1">CNPJ</InputGroup.Text>
+            <Form.Control
+              placeholder="Digite o CNPJ da Empresa"
+              aria-label="cnpj"
+              aria-describedby="basic-addon1"
+              onChange={(e) => setsearch(e.target.value)}
+            />
+          </InputGroup>
+          <SearchNormal1
+            size="32"
+            color="#FFF"
+            className={styles.iconSearch}
+            onClick={() => pesquisarEmpresaPorCnpj(search)}
+          />
+        </section>
+        <section className={styles.spinner}>
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </section>
+      </>
+    );
+  }
+
+  if (items.length == 0 && !loading) {
     return (
       <>
         <section className={styles.containerPesquisa}>
@@ -140,7 +187,7 @@ export default function ListaEmpresa() {
           size="lg"
           onClick={() => pesquisarEmpresaPorCnpj("")}
         >
-          Limpar consulta
+          Exibir Lista
         </Button>
 
         <div className={styles.margemBottom}></div>
