@@ -28,6 +28,7 @@ function App() {
           <Route path='/' element={<Home />}></Route>
           <Route path='/cadastro-empresa' element={<CadastroEmpresa />}></Route>
           <Route path='/consultar-empresas' element={<ConsultarEmpresas />}></Route>
+          <Route path='/dist/*' element={<Home /> }></Route>
           <Route path='/*' element={<PageNotFound />}></Route>
         </Routes>
         <Footer />
